@@ -1,0 +1,22 @@
+{
+    "Jackie": {
+        "recommended": [
+            "1000 meter row",
+            "50 thrusters",
+            "30 pull-ups",
+            "45lb"
+        ],
+        "dates": {
+            "220812": {
+                "time": "11:03",
+                "actual": [
+                    "1000 meter row",
+                    "50 thrusters",
+                    "30 pull-ups",
+                    "45lb"
+                ],
+                "note": "Did set of 10 thrusters and 6 pullups 5 times, then rowed"
+            }
+        }
+    }
+}
