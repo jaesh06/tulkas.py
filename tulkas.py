@@ -1,4 +1,5 @@
 import json
+from re import search
 from time import sleep
 
 def enter_workout(workout_name):
@@ -27,6 +28,7 @@ def enter_workout(workout_name):
         with open("workout_db.json", "w") as outfile:
             json.dump(db, outfile, indent=4)
         print("Data written to file.")
+        input("Press Enter to continue...")
     else:
         return
 
@@ -49,6 +51,7 @@ def update_workout(workout_name):
         with open("workout_db.json", "w") as outfile:
             json.dump(db, outfile, indent=4)
         print("Data written to file.")
+        input("Press Enter to continue...")
     else:
         return
 
@@ -66,14 +69,29 @@ while(True):
                 data = json.load(f)
         except:
             print("Oh no! workout_db.json is empty. There is nothing to view.")
-            sleep(1)
+            input("Press Enter to continue...")
             continue
-        wo_name = input("Workout name: ")
-        if data.get(wo_name):
-            print(json.dumps(data[wo_name]["dates"], indent=4))
-        else:
-            print("Workout not found.")
-            sleep(1)
+        print("Search database by: ")
+        print("1) Workout Name")
+        print("2) Date")
+        search_choice = input("Selection: ")
+        if search_choice == "1":
+            wo_name = input("Workout name: ")
+            if data.get(wo_name):
+                print(json.dumps(data[wo_name]["dates"], indent=4))
+                input("Press Enter to continue...")
+            else:
+                print("Workout not found.")
+                input("Press Enter to continue...")
+        if search_choice == "2":
+            search_date = input("Date (yymmdd): ")
+            for wo in data:
+                for date in data[wo]["dates"]:
+                    if date == search_date:
+                        print("Workout Name: " + wo)
+                        print(json.dumps(data[wo]["dates"][date]))
+                        input("Press Enter to continue...")
+                        break
     if main_menu == "2":
         try:
             with open("workout_db.json") as f:
