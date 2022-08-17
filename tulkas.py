@@ -72,7 +72,7 @@ while(True):
         if data.get(wo_name):
             print(json.dumps(data[wo_name]["dates"], indent=4))
         else:
-            print("Name not found.")
+            print("Workout not found.")
             sleep(1)
     if main_menu == "2":
         try:
@@ -85,13 +85,13 @@ while(True):
                 db = json.load(f)
         new_name = input("Enter workout name: ")
         if db.get(new_name):
-            existing_choice = input("Name exists. Would you like to add a new date? (y or n): ")
+            existing_choice = input("Workout exists. Would you like to add a new date? (y or n): ")
             if existing_choice == "y":
                 update_workout(new_name)
             else:
                 continue
         else:
-            choice = input("Name was not found. Would you like to add it? (y or n): ")
+            choice = input("Workout was not found. Would you like to add it? (y or n): ")
             if choice == "y":
                 enter_workout(new_name)
             else:
