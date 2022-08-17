@@ -1,6 +1,4 @@
 import json
-from re import search
-from time import sleep
 
 def enter_workout(workout_name):
     r_exercises = []
