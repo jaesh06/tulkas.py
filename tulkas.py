@@ -1,7 +1,9 @@
 import json
+import re
 
 def enter_workout(workout_name):
     r_exercises = []
+    custom = input("Is this a custom workout? (y or n): ")
     r_exercise_number = int(input("Enter number of recommended exercises: "))
     for i in range(r_exercise_number+1):
         if i > r_exercise_number-1:
@@ -18,7 +20,7 @@ def enter_workout(workout_name):
         else:
             a_exercises.append(input("Enter actual exercise " + str(i+1) + ": "))
     note = input("Notes: ")
-    current_workout = {workout_name: {"recommended": [r_exercises], "dates": {date: {"time": completion_time, "actual": [a_exercises], "note": note}}}}
+    current_workout = {workout_name: {"recommended": [r_exercises], "dates": {date: {"time": completion_time, "actual": [a_exercises], "note": note}}, "custom": custom}}
     print(json.dumps(current_workout, indent=4))
     write_choice = input("Write to file? (y or n): ")
     if write_choice == "y":
@@ -72,6 +74,7 @@ while(True):
         print("Search database by: ")
         print("1) Workout Name")
         print("2) Date")
+        print("3) Recommended Exercise Keyword")
         search_choice = input("Selection: ")
         if search_choice == "1":
             wo_name = input("Workout name: ")
@@ -90,6 +93,15 @@ while(True):
                         print(json.dumps(data[wo]["dates"][date]))
                         input("Press Enter to continue...")
                         break
+        if search_choice == "3":
+            keyword = input("Exercise keyword (this searches in the recommended exercise list): ")
+            regex_string = "^.*" + keyword + ".*$"
+            for wo in data:
+                for rec in data[wo]["recommended"]:
+                    for ex in rec:
+                        result = re.search(regex_string, ex)
+                        if result:
+                            print(wo + " : " + str(data[wo]["recommended"]))
     if main_menu == "2":
         try:
             with open("workout_db.json") as f:
